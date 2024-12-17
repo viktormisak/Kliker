@@ -1,0 +1,30 @@
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
+import time
+
+# Налаштування драйвера
+driver_path = "path_to_chromedriver"  # Змініть на шлях до вашого ChromeDriver
+url = "https://example.com"  # URL сайту з кнопкою
+
+# Запуск браузера
+driver = webdriver.Chrome(executable_path=driver_path)
+driver.get(url)
+
+try:
+    # Знайти кнопку за її ID, класом, або іншим селектором
+    button = driver.find_element(By.ID, "button_id")  # Змініть "button_id" на реальний ID кнопки
+    # Альтернатива: By.CLASS_NAME або By.XPATH
+    # button = driver.find_element(By.CLASS_NAME, "button_class")
+    # button = driver.find_element(By.XPATH, "//button[text()='Click Me']")
+    
+    # Клік по кнопці
+    ActionChains(driver).move_to_element(button).click(button).perform()
+    print("Кнопка натиснута!")
+    
+    # Дочекатися результату (опціонально)
+    time.sleep(5)
+
+finally:
+    # Закрити браузер
+    driver.quit()
